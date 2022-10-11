@@ -43,6 +43,10 @@ impl PermutationTable {
 /// 
 /// This means that anything implementing the [Rng] trait can produce a randomized PermutationTable, 
 /// but since a PermutationTable mut be created though the new() method, we only use [SplitMix64].
+/// 
+/// ## Note
+/// It might be an idea to come back to this and find a better implementation for randomizing the PermutationTable. 
+/// As it is right now "bad" PermutationTables could be created giving repetetive results, but it's probably not a big deal.
 impl Distribution<PermutationTable> for Standard {
     fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> PermutationTable {
         // The sorted table
