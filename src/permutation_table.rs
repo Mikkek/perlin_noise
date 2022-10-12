@@ -29,10 +29,10 @@ impl PermutationTable {
     /// # Panics
     /// 
     /// If i made a very big mistake
-    pub fn hash(&self, input: &[isize]) -> u8 {
+    pub fn hash(&self, input: &[usize]) -> u8 {
         let index = input
             .iter()
-            .map(|&a| (a & 0xff) as usize)  // Reduce values to the last 8 bits
+            .map(|&a| a & 0xff )  // Reduce values to the last 8 bits
             .reduce(|a, b| self.values[a ^ b] as usize)
             .unwrap();
         self.values[index]
