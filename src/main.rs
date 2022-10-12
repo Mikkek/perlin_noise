@@ -55,7 +55,10 @@ fn main() {
 ///     this is the bit with the "& 0b11" for randomness, so pick a random gradient vector for each distance vector
 /// 
 /// - Linear interpolation time! Linearly interpolate between the 'influence values' and the relative input coords. 
-///     So, if the influence values are g1..g4 and our relative coords are u and v, then
+///     Remember to do the linear interpolation in the correct order, if you don't you will end up wondering why your results are not what you would expect. 
+///     This can easily lead to you spending A LOT of time trying to figure out why everything looks ok, but nothing is, until you realize, that 
+///     the problem was actually just the result of your own stupidity. This will undoubtedly lead to more self hatred, as you realize how mutch time you have wasted 
+///     due to your own idiotic mistake. Just as an arbitraty example.
 fn perlin2d(mut point: Vec2, perm_table: &PermutationTable) -> f64 {
 
 // Find unit square:
