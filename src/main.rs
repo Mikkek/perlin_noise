@@ -10,15 +10,15 @@ const SCALE: f64 = 100.0;
 
 fn main() {
     let perm_table = PermutationTable::new(SEED);
-    let mut image = ImageBuffer::new(512, 512);
+    let mut image = ImageBuffer::new(1024, 1024);
 
-    for i in 0..512 {
-        for j in 0..512 {
-            let point = Vec2::new(
+    for i in 0..1024 {
+        for j in 0..1024 {
+            let mut point = Vec2::new(
                 (i as f64) / SCALE,
                 (j as f64) / SCALE,
             );
-            let mut val = perlin2d(point, &perm_table);
+            let mut val = perlin2d(&mut point, &perm_table);
 
             val = (val + 1.0) / 2.0;    // Normalize val
 
@@ -34,6 +34,7 @@ fn main() {
         Ok(_) => println!("Image saved"),
         Err(e) => println!("Error saving image\n{}", e),
     }
+    println!("{:?}", perm_table);
 }
 
 /// # 10 Minute-crafts tutorial (i think)
@@ -59,7 +60,7 @@ fn main() {
 ///     This can easily lead to you spending A LOT of time trying to figure out why everything looks ok, but nothing is, until you realize, that 
 ///     the problem was actually just the result of your own stupidity. This will undoubtedly lead to more self hatred, as you realize how mutch time you have wasted 
 ///     due to your own idiotic mistake. Just as an arbitraty example.
-fn perlin2d(mut point: Vec2, perm_table: &PermutationTable) -> f64 {
+fn perlin2d(point: &mut Vec2, perm_table: &PermutationTable) -> f64 {
 
 // Find unit square:
     let unit_x = (point.x.floor() as usize) & 0xff;
